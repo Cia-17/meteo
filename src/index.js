@@ -16,7 +16,8 @@ function refreshWeather(response){
     temperatureElement.innerHTML = Math.round(temperature)
     cityElement.innerHTML = response.data.city;
     descriptionElement.innerHTML = response.data.condition.description;
-
+    
+    getForecast(response.data.city);
 }
 
 function formatDate(date){
@@ -65,7 +66,16 @@ function handleSearchSubmit(event){
 }
 
 
-function displayForcast(){
+function getForecast(city){
+    let apiKey = "c33e6a2o22a07a65f728fe3b854t0bd9";
+    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`
+    axios(apiUrl).then(displayForecast);
+
+
+}
+
+
+function displayForecast(response){
 
     let days = [
         "Tue", 
@@ -102,9 +112,9 @@ function displayForcast(){
 let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", handleSearchSubmit)
 
-searchCity("Tokyo")
+searchCity("Tokyo");
 
-displayForcast();
+displayForecast();
 
 
 
